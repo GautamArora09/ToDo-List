@@ -1,97 +1,118 @@
+let isEdit = false;
+document.addEventListener('DOMContentLoaded', () => {
+    let tasks = getItemFromStorage();
+    tasks.forEach((i) => displayItem(i))
+});
+function task(name, date, category) {
+    this.name = name;
+    this.date = date;
+    this.category = category;
+}
 function addData() {
     // Get input values
-    let name =
-     document.getElementById("nameInput").value;
-    let date =
-     document.getElementById("dateInput").value;
-    let category =
-     document.getElementById("categoryInput").value;
-    
+    let tName =
+        document.getElementById("nameInput").value;
+    let tDate =
+        document.getElementById("dateInput").value;
+    let tCategory =
+        document.getElementById("categoryInput").value;
+
+    if (isEdit) {
+        let edit = document.querySelector(".edited");
+        removeItemFromStorage(edit.cells[0].textContent);
+        edit.remove();
+        document.getElementById("btn").style.backgroundColor = "#333";
+        document.getElementById("btn").textContent = "Add";
+        isEdit = false;
+    }
+
     // Get the table and insert a new row at the end
+
+    let Ntask = new task(tName, tDate, tCategory);
+    // Clear input fields
+    addItemToStorage(Ntask);
+    displayItem(Ntask);
+    clearInputs();
+}
+function displayItem(task) {
     let table = document.getElementById("outputTable");
     let newRow = table.insertRow(table.rows.length);
-    
-    // Insert data into cells of the new row
-    newRow.insertCell(0).innerHTML = name;
-    newRow.insertCell(1).innerHTML = date;
-    newRow.insertCell(2).innerHTML = category;
+
+        // Insert data into cells of the new row
+        newRow.insertCell(0).innerHTML = task.name;
+    newRow.insertCell(1).innerHTML = task.date;
+    newRow.insertCell(2).innerHTML = task.category;
     newRow.insertCell(3).innerHTML =
-     '<button onclick="editData(this)">Edit</button>'+
-     '<button onclick="deleteData(this)">Delete</button>';
-    
-    // Clear input fields
-    clearInputs();
-   }
- 
-   function editData(button) {
-    
-    // Get the parent row of the clicked button
+        '<button onclick="editData(this)">Edit</button>' +
+        '<button onclick="deleteData(this)">Delete</button>';
+
+}
+function editData(button) {
+    isEdit = true;
     let row = button.parentNode.parentNode;
-    
-    // Get the cells within the row
+    row.classList.add('edited');
     let nameCell = row.cells[0];
     let dateCell = row.cells[1];
     let categoryCell = row.cells[2];
-    
-    // Prompt the user to enter updated values
-    let nameInput =
-     prompt("Enter the updated name:",
-      nameCell.innerHTML);
-    let dateInput =
-     prompt("Enter the updated date:",
-      dateCell.innerHTML);
-    let categoryInput =
-     prompt("Enter the updated mobile details:",
-     categoryCell.innerHTML
-     );
- 
-    
-    // Update the cell contents with the new values
-    nameCell.innerHTML = nameInput;
-    dateCell.innerHTML = dateInput;
-    categoryCell.innerHTML = categoryInput;
-   }
 
-   function deleteData(button) {
-    
+    document.getElementById("nameInput").value = nameCell.textContent;
+    document.getElementById("dateInput").value = dateCell.textContent;
+    document.getElementById("categoryInput").value = categoryCell.textContent;
+
+    document.getElementById("btn").style.backgroundColor = "green";
+    document.getElementById("btn").textContent = "Update";
+
+}
+
+function deleteData(button) {
+
     // Get the parent row of the clicked button
-    let row = button.parentNode.parentNode;
+    let row = button.parentElement.parentElement;
     // Remove the row from the table
-    row.parentNode.removeChild(row);
-   }
 
-   function clearInputs() {
+    row.parentNode.removeChild(row);
+    removeItemFromStorage(row.firstChild.textContent);
+    console.log(row.firstChild.textContent);
+
+}
+
+function clearInputs() {
     // Clear input fields
     document.getElementById("nameInput").value = "";
     document.getElementById("dateInput").value = "";
     document.getElementById("categoryInput").value = "";
-   }
+}
 
 
 
-   
-   function getItemFromStorage() {
-    let items;
-    if (localStorage.getItem('items') === null) {
-        items = [];
+
+function getItemFromStorage() {
+    let tasks;
+    if (localStorage.getItem('tasks') === null) {
+        tasks = [];
     } else {
-        items = JSON.parse(localStorage.getItem('items'));
+        tasks = JSON.parse(localStorage.getItem('tasks'));
     }
-    return items;
-   }
+    return tasks;
+}
 
-   function addItemToStorage(item) {
-    let items = getItemFromStorage();
+function addItemToStorage(task) {
+    let tasks = getItemFromStorage();
 
-    items.push(item);
-    localStorage.setItem('items', JSON.stringify(items));
+    tasks.push(task);
+    console.log(tasks);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 
-   }
+}
 
-   function removeItemFromStorage(item) {
-    let items = getItemFromStorage();
+function removeItemFromStorage(name) {
+    let tasks = getItemFromStorage();
 
-    items = items.filter((i)=> i!==item );
+    tasks.forEach((i, index) => {
+        if (i.name === name) {
+            tasks.splice(index, 1);
+        }
+    });
 
-    localStorage.setItem('items',JSON.stringify(items));
-   }
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}

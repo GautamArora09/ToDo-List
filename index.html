@@ -44,7 +44,10 @@
                         <option value="People">People</option>
                         <option value="Next Week">Next Week</option>
                     </select>
-                    <button onclick="addData()" ><i class="fa-solid fa-plus"></i>   Add</button>
+                    <button onclick="addData()" id="btn"><i class="fa-solid fa-plus"></i>   Add</button>
+                </div>
+                <div>
+                    <input type="search" name="" id="filterInput" placeholder="Search...">
                 </div>
                 <table id="outputTable">
                     <tr>
@@ -56,5 +59,19 @@
                 </table>
             </div>
         </div>
+    <script>
+        // Get Input Element
+        let filterInput = document.getElementById('filterInput');
+
+        // Add Event Listner
+        filterInput.addEventListener('keyup', filterNames);
+
+        function filterNames(){
+            // Get Value Of Input
+            let filtervalue = document.getElementById('filterInput').value.toUpperCase();
+
+            let names = document.getElementById('');
+        }
+    </script>
     </body>
 </html>
