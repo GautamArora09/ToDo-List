@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ToDo List</title>
+        <script
+            src="https://kit.fontawesome.com/953931bfaa.js"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="start">
+            <div class="box" style="background-color: rgba(255, 0, 0, 0.745) ; flex-shrink: 1;"></div>
+            <a href="#startt" id="gobutton"><div class="box">
+                <img src="360_F_363171306_kWgy4ZQ2EwyRUkEqMqd15G8OnpAz5tbg.jpg" alt="" length="300" width="352">
+            </div></a>
+            <div class="box" style="background-color: rgba(212, 71, 236, 0.903); flex-shrink: 1"></div>
+        </div>
+        <div id="startt">
+            <div class="container">
+                <div class="head">
+                    <i class="fa-solid fa-list-ol fa-2xl"></i>
+                    <h1 style="font-family: 'Caprasimo', cursive;">Todo List</h1>
+                </div>
+                <div id="formContainer" class="form">
+                    <input type="text"
+                    id="nameInput"
+                    placeholder="Enter Work">
+                    <input type="date" id="dateInput">
+                    <select name="Category" id="categoryInput" class="category">
+                        <option hidden selected>Select Category...</option>
+                        <option value="Deep Work">Deep Work</option>
+                        <option value="Shallow Work">Shallow Work</option>
+                        <option value="Chores">Chores</option>
+                        <option value="Learning">Learning</option>
+                        <option value="Mind Care">Mind Care</option>
+                        <option value="Body Care">Body Care</option>
+                        <option value="People">People</option>
+                        <option value="Next Week">Next Week</option>
+                    </select>
+                    <button onclick="addData()" ><i class="fa-solid fa-plus"></i>   Add</button>
+                </div>
+                <table id="outputTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
