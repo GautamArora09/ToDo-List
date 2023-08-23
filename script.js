@@ -1,3 +1,20 @@
+// btn.addEventListener('click', btnf);
+// function btnf(e) {
+//     if (nameInput.value.trim() === "") {
+//         alert("your Name input is empty");
+//         return;
+//     }
+//     if (dateInput.value.trim() === "") {
+//         alert("your Date input is empty");
+//         return;
+//     }
+//     if (categoryInput.value.trim() === "") {
+//         alert("your Category input is empty");
+//         return;
+//     }
+// }
+
+
 let isEdit = false;
 document.addEventListener('DOMContentLoaded', () => {
     let tasks = getItemFromStorage();
@@ -16,6 +33,14 @@ function addData() {
         document.getElementById("dateInput").value;
     let tCategory =
         document.getElementById("categoryInput").value;
+    if (tName.trim() === "") {
+        alert("Your Name input is empty");
+        return;
+    }
+    if (tDate.trim() === "") {
+        alert("Your Date input is empty");
+        return;
+    }
 
     if (isEdit) {
         let edit = document.querySelector(".edited");
@@ -38,8 +63,8 @@ function displayItem(task) {
     let table = document.getElementById("outputTable");
     let newRow = table.insertRow(table.rows.length);
 
-        // Insert data into cells of the new row
-        newRow.insertCell(0).innerHTML = task.name;
+    // Insert data into cells of the new row
+    newRow.insertCell(0).innerHTML = task.name;
     newRow.insertCell(1).innerHTML = task.date;
     newRow.insertCell(2).innerHTML = task.category;
     newRow.insertCell(3).innerHTML =
@@ -115,4 +140,31 @@ function removeItemFromStorage(name) {
     });
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+
+// Get Input Element
+let filterInput = document.getElementById('filterInput');
+// let filterInput = document.querySelector('input');
+// console.log(filterInput);
+// Add Event Listner
+filterInput.addEventListener('keyup', filterNames);
+
+function filterNames(e) {
+    // Get Value Of Input
+    // let tasks = getItemFromStorage();
+    let names = document.querySelectorAll('tr');
+    console.log(names);
+    let val = document.getElementById('filterInput').value.toLowerCase();
+
+    names.forEach((i) => {
+        let name = i.firstChild.textContent.toLowerCase();
+        if (!i.classList.contains('tableHead') && name.indexOf(val) == -1) {
+            i.style.display = 'none';
+        } else {
+            i.style.display = 'block';
+
+        }
+    })
+
 }

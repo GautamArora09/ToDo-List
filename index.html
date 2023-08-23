@@ -9,7 +9,6 @@
             crossorigin="anonymous"
         ></script>
         <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Caprasimo&display=swap" rel="stylesheet">
@@ -34,7 +33,7 @@
                     placeholder="Enter Work">
                     <input type="date" id="dateInput">
                     <select name="Category" id="categoryInput" class="category">
-                        <option hidden selected>Select Category...</option>
+                        <option selected>Select Category...</option>
                         <option value="Deep Work">Deep Work</option>
                         <option value="Shallow Work">Shallow Work</option>
                         <option value="Chores">Chores</option>
@@ -47,31 +46,21 @@
                     <button onclick="addData()" id="btn"><i class="fa-solid fa-plus"></i>   Add</button>
                 </div>
                 <div>
-                    <input type="search" name="" id="filterInput" placeholder="Search...">
+                    <input type="text" id="filterInput" placeholder="Search...">
                 </div>
-                <table id="outputTable">
-                    <tr>
-                        <th>Name</th>
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th>Action</th>
-                    </tr>
-                </table>
+                <div id="table">
+                    <table id="outputTable">
+                        <tr class="tableHead">
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                            <th>Status</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-    <script>
-        // Get Input Element
-        let filterInput = document.getElementById('filterInput');
-
-        // Add Event Listner
-        filterInput.addEventListener('keyup', filterNames);
-
-        function filterNames(){
-            // Get Value Of Input
-            let filtervalue = document.getElementById('filterInput').value.toUpperCase();
-
-            let names = document.getElementById('');
-        }
-    </script>
+        <script src="script.js"></script>
     </body>
 </html>
