@@ -2,12 +2,10 @@ let isEdit = false;
 let tasks = localStorage.getItem('tasks') || [];
 document.addEventListener('DOMContentLoaded', () => {
     let tasks = getItemFromStorage();
-    tasks.sort((s1, s2) => s2.time - s1.time);
     tasks.forEach((i) => displayItem(i))
 });
-function task(name, date, time, category) {
+function task(name, date, category) {
     this.name = name;
-    this.time = new Date().getTime();
     this.date = date;
     this.category = category;
 }
@@ -20,6 +18,7 @@ function addData() {
     let tCategory =
         document.getElementById("categoryInput").value;
     let timet = new Date().getTime();
+
     if (tName.trim() === "") {
         alert("Your Name input is empty");
         return;
@@ -28,10 +27,9 @@ function addData() {
         alert("Your Date input is empty");
         return;
     }
-
     let endtime=new Date(tDate).getTime();
     if (endtime < timet) {
-        alert("Please Enter valid Time");
+        alert("Please Enter Valid Time");
         clearInputs();
         return;
     }
@@ -45,9 +43,8 @@ function addData() {
         isEdit = false;
     }
 
-
     // Get the table and insert a new row at the end
-    let Ntask = new task(tName, tDate, timet, tCategory);
+    let Ntask = new task(tName, tDate, tCategory);
     // Clear input fields
     addItemToStorage(Ntask);
     location.reload();
@@ -55,16 +52,7 @@ function addData() {
     clearInputs();
 }
 
-let filter=document.getElementById("filterInput").value;
-console.log(filter);
-// filter.addEventListener('click',e=>{
-//     const fl=filter;
-//     console.log(fl);
-
-// })
-
 function displayItem(task) {
-    // tasks.sort((s1, s2) => s2.time - s1.time);
     let table = document.getElementById("outputTable");
     let newRow = table.insertRow(table.rows.length);
 
@@ -77,6 +65,7 @@ function displayItem(task) {
         '<button onclick="deleteData(this)">Delete</button>';
 
 }
+
 function editData(button) {
     isEdit = true;
     let row = button.parentNode.parentNode;
@@ -95,15 +84,12 @@ function editData(button) {
 }
 
 function deleteData(button) {
-
     // Get the parent row of the clicked button
     let row = button.parentElement.parentElement;
     // Remove the row from the table
-
     row.parentNode.removeChild(row);
     removeItemFromStorage(row.firstChild.textContent);
     console.log(row.firstChild.textContent);
-
 }
 
 function clearInputs() {
@@ -113,9 +99,6 @@ function clearInputs() {
     document.getElementById("categoryInput").value = "";
 }
 
-
-
-
 function getItemFromStorage() {
     let tasks;
     if (localStorage.getItem('tasks') === null) {
@@ -124,8 +107,6 @@ function getItemFromStorage() {
         tasks = JSON.parse(localStorage.getItem('tasks'));
     }
     console.log(tasks);
-    // tasks.sort(s1,s2);
-    // console.log(tasks)
     return tasks;
 }
 
@@ -158,7 +139,6 @@ function filterNames(e) {
     let names = document.querySelectorAll('tr');
     console.log(names);
     let val = document.getElementById('filterInput').value.toLowerCase();
-
     names.forEach((i) => {
         let name = i.firstChild.textContent.toLowerCase();
         if (!i.classList.contains('tableHead') && name.indexOf(val) == -1) {

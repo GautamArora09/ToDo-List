@@ -7,16 +7,9 @@
 }
 body{
     background-color: #ffffff;
-    color:#333;
+    color:#000;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    
-}
-#startt{
-    display: flex;
-    justify-content: left;
-    margin-left: 52px;
 }
 #start{
     display: flex;
@@ -26,17 +19,26 @@ body{
     height: 100vh;
     width: 98vw;
 }
+#startt{
+    display: flex;
+    justify-content: left;
+    margin-left: 52px;
+}
 .box{
     height: 22rem;
     width: 22rem;
-    box-shadow: -13px 13px 20px 0px rgb(0 0 0 / 50%);
     border-radius: 7px;
     background-color: yellow;
     display: flex;
     align-items: center;
 }
+.box:hover{
+    box-shadow: 0px 0px 9px 9px rgb(0 0 0 / 50%);
+}
 button:hover{
     cursor: pointer;
+    box-shadow: 1px 0px 99px 1px rgb(0 0 0/ 100%);
+    /*212, 71, 236*/
 }
 .container{
     display: flex;
@@ -56,9 +58,7 @@ button:hover{
 }
 .form input{
     width: 30%;
-    /* height: 3em; */
     padding: 8px;
-    /* padding-left: 5px; */
     font-size: 20px;
     border-radius: 5px;
     border: 1px #fff solid;
@@ -95,7 +95,6 @@ input:focus{
     padding: 5px;
     border: 1px #ccc solid;
     border-radius: 5px;
-    
 }
 li button{
     background-color: transparent;
@@ -109,12 +108,12 @@ li button{
 }
 #formContainer {
     margin-bottom: 20px;
-   }
-label {
+}
+label{
     display: block;
     margin-top: 10px;
 } 
-button {
+button{
     padding: 8px 16px;
     background-color: red;
     color: #fff;
@@ -123,27 +122,27 @@ button {
     cursor: pointer;
     margin: 07px;
 } 
-button:hover {
+button:hover{
     background-color: yellow;
     color: #000;
 } 
-table {
+table{
     border-collapse: collapse;
     margin-bottom: 20px;
     width: 100%;
 } 
 th,
-td {
+td{
     border: 1px solid #fff;
     padding: 8px;
     text-align: left;
     width: 340;
 }
-th {
-    background-color: rgba(212, 71, 236, 0.903);
+th{
+    background-color: yellow;
     color: #000000;
 }
-table {
+table{
     width: 637px;
 }
 .filter{
