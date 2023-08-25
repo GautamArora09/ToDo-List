@@ -1,27 +1,13 @@
-// btn.addEventListener('click', btnf);
-// function btnf(e) {
-//     if (nameInput.value.trim() === "") {
-//         alert("your Name input is empty");
-//         return;
-//     }
-//     if (dateInput.value.trim() === "") {
-//         alert("your Date input is empty");
-//         return;
-//     }
-//     if (categoryInput.value.trim() === "") {
-//         alert("your Category input is empty");
-//         return;
-//     }
-// }
-
-
 let isEdit = false;
+let tasks = localStorage.getItem('tasks') || [];
 document.addEventListener('DOMContentLoaded', () => {
     let tasks = getItemFromStorage();
+    tasks.sort((s1, s2) => s2.time - s1.time);
     tasks.forEach((i) => displayItem(i))
 });
-function task(name, date, category) {
+function task(name, date, time, category) {
     this.name = name;
+    this.time = new Date().getTime();
     this.date = date;
     this.category = category;
 }
@@ -33,12 +19,20 @@ function addData() {
         document.getElementById("dateInput").value;
     let tCategory =
         document.getElementById("categoryInput").value;
+    let timet = new Date().getTime();
     if (tName.trim() === "") {
         alert("Your Name input is empty");
         return;
     }
     if (tDate.trim() === "") {
         alert("Your Date input is empty");
+        return;
+    }
+
+    let endtime=new Date(tDate).getTime();
+    if (endtime < timet) {
+        alert("Please Enter valid Time");
+        clearInputs();
         return;
     }
 
@@ -51,15 +45,26 @@ function addData() {
         isEdit = false;
     }
 
-    // Get the table and insert a new row at the end
 
-    let Ntask = new task(tName, tDate, tCategory);
+    // Get the table and insert a new row at the end
+    let Ntask = new task(tName, tDate, timet, tCategory);
     // Clear input fields
     addItemToStorage(Ntask);
-    displayItem(Ntask);
+    location.reload();
+    // displayItem(Ntask);
     clearInputs();
 }
+
+let filter=document.getElementById("filterInput").value;
+console.log(filter);
+// filter.addEventListener('click',e=>{
+//     const fl=filter;
+//     console.log(fl);
+
+// })
+
 function displayItem(task) {
+    // tasks.sort((s1, s2) => s2.time - s1.time);
     let table = document.getElementById("outputTable");
     let newRow = table.insertRow(table.rows.length);
 
@@ -118,13 +123,16 @@ function getItemFromStorage() {
     } else {
         tasks = JSON.parse(localStorage.getItem('tasks'));
     }
+    console.log(tasks);
+    // tasks.sort(s1,s2);
+    // console.log(tasks)
     return tasks;
 }
 
 function addItemToStorage(task) {
     let tasks = getItemFromStorage();
 
-    tasks.push(task);
+    tasks.unshift(task);
     console.log(tasks);
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
@@ -132,7 +140,6 @@ function addItemToStorage(task) {
 
 function removeItemFromStorage(name) {
     let tasks = getItemFromStorage();
-
     tasks.forEach((i, index) => {
         if (i.name === name) {
             tasks.splice(index, 1);
@@ -143,16 +150,11 @@ function removeItemFromStorage(name) {
 }
 
 
-// Get Input Element
+
 let filterInput = document.getElementById('filterInput');
-// let filterInput = document.querySelector('input');
-// console.log(filterInput);
-// Add Event Listner
 filterInput.addEventListener('keyup', filterNames);
 
 function filterNames(e) {
-    // Get Value Of Input
-    // let tasks = getItemFromStorage();
     let names = document.querySelectorAll('tr');
     console.log(names);
     let val = document.getElementById('filterInput').value.toLowerCase();
@@ -163,7 +165,6 @@ function filterNames(e) {
             i.style.display = 'none';
         } else {
             i.style.display = 'block';
-
         }
     })
 

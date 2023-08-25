@@ -45,8 +45,22 @@
                     </select>
                     <button onclick="addData()" id="btn"><i class="fa-solid fa-plus"></i>   Add</button>
                 </div>
+                <div class="search-box">
+                    <button class="btn-search"><i class="fas fa-search"></i></button>
+                    <input type="text" class="input-search" placeholder="Type to Search..." id="filterInput">
+                </div>
                 <div>
-                    <input type="text" id="filterInput" placeholder="Search...">
+                    <select id="filterInput" name="Filter" class="filter">
+                        <option >Filter...</option>
+                        <option value="Deep Work">Deep Work</option>
+                        <option value="Shallow Work">Shallow Work</option>
+                        <option value="Chores">Chores</option>
+                        <option value="Learning">Learning</option>
+                        <option value="Mind Care">Mind Care</option>
+                        <option value="Body Care">Body Care</option>
+                        <option value="People">People</option>
+                        <option value="Next Week">Next Week</option>
+                    </select>
                 </div>
                 <div id="table">
                     <table id="outputTable">
@@ -55,7 +69,6 @@
                             <th>Date</th>
                             <th>Category</th>
                             <th>Action</th>
-                            <th>Status</th>
                         </tr>
                     </table>
                 </div>
