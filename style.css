@@ -32,13 +32,8 @@ body{
     display: flex;
     align-items: center;
 }
-.box:hover{
-    box-shadow: 0px 0px 9px 9px rgb(0 0 0 / 50%);
-}
 button:hover{
     cursor: pointer;
-    box-shadow: 1px 0px 99px 1px rgb(0 0 0/ 100%);
-    /*212, 71, 236*/
 }
 .container{
     display: flex;
@@ -200,4 +195,13 @@ table{
     border-bottom:1px solid rgba(255,255,255,.5);
     transition: all 1.5ms cubic-bezier(0, 0.110, 0.35, 2);
 }
-
+.checked{
+    text-decoration: line-through;
+}
+#voice{
+    width: 20%;
+    padding: 8px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px #fff solid;   
+}

@@ -2,12 +2,25 @@ let isEdit = false;
 let tasks = localStorage.getItem('tasks') || [];
 document.addEventListener('DOMContentLoaded', () => {
     let tasks = getItemFromStorage();
-    tasks.forEach((i) => displayItem(i))
+    tasks.forEach((i) => displayItem(i));
+    const input = document.querySelectorAll(".check");
+
+
+    input.forEach(e => {
+        e.addEventListener('click', e => {
+            console.log(e.target.closest(".check").parentElement.parentElement);
+            e.target.closest(".check").parentElement.parentElement.classList.add("checked");
+            console.log(tasks);
+        })
+
+    })
+
 });
-function task(name, date, category) {
+function task(name, date, category, done) {
     this.name = name;
     this.date = date;
     this.category = category;
+    this.done = done;
 }
 function addData() {
     // Get input values
@@ -18,6 +31,7 @@ function addData() {
     let tCategory =
         document.getElementById("categoryInput").value;
     let timet = new Date().getTime();
+    let done = false;
 
     if (tName.trim() === "") {
         alert("Your Name input is empty");
@@ -27,7 +41,7 @@ function addData() {
         alert("Your Date input is empty");
         return;
     }
-    let endtime=new Date(tDate).getTime();
+    let endtime = new Date(tDate).getTime();
     if (endtime < timet) {
         alert("Please Enter Valid Time");
         clearInputs();
@@ -44,7 +58,7 @@ function addData() {
     }
 
     // Get the table and insert a new row at the end
-    let Ntask = new task(tName, tDate, tCategory);
+    let Ntask = new task(tName, tDate, tCategory, done);
     // Clear input fields
     addItemToStorage(Ntask);
     location.reload();
@@ -63,8 +77,13 @@ function displayItem(task) {
     newRow.insertCell(3).innerHTML =
         '<button onclick="editData(this)">Edit</button>' +
         '<button onclick="deleteData(this)">Delete</button>';
+    newRow.insertCell(4).innerHTML =
+        '<input type="checkbox" class="check"></button>'
+
 
 }
+
+// function status()
 
 function editData(button) {
     isEdit = true;
@@ -135,7 +154,7 @@ function removeItemFromStorage(name) {
 let filterInput = document.getElementById('filterInput');
 filterInput.addEventListener('keyup', filterNames);
 
-function filterNames(e) {
+function filterNames() {
     let names = document.querySelectorAll('tr');
     console.log(names);
     let val = document.getElementById('filterInput').value.toLowerCase();
@@ -149,3 +168,21 @@ function filterNames(e) {
     })
 
 }
+
+
+function startVoiceSearch() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+  
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript.toLowerCase();
+    //   document.getElementById('voice').value = transcript;
+    filterInput.value = transcript;
+      filterNames();
+    };
+  
+    recognition.start();
+  }
+
+    const voiceSearchButton = document.getElementById('voiceSearchButton');
+  voiceSearchButton.addEventListener('click', startVoiceSearch);
